@@ -1,0 +1,63 @@
+{
+	"name": "fullstack-assignment",
+	"version": "0.1.0",
+	"private": true,
+	"packageManager": "pnpm@11.21.0",
+	"engines": {
+		"node": ">=24.19.0 <25",
+		"pnpm": "11.21.0"
+	},
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome lint .",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"payload": "payload",
+		"payload:migrate": "payload migrate",
+		"payload:migrate:create": "payload migrate:create",
+		"payload:migrate:fresh": "payload migrate:fresh",
+		"payload:migrate:status": "payload migrate:status",
+		"payload:generate:importmap": "payload generate:importmap",
+		"payload:generate:types": "payload generate:types",
+		"test:integration": "vitest run --config vitest.config.mts",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@hookform/resolvers": "^5.7.1",
+		"@payloadcms/db-postgres": "3.87.1",
+		"@payloadcms/next": "3.87.1",
+		"@tanstack/react-query": "^5.101.4",
+		"@tanstack/react-query-devtools": "^5.101.4",
+		"@trpc/client": "^11.18.0",
+		"@trpc/server": "^11.18.0",
+		"@trpc/tanstack-react-query": "^11.18.0",
+		"@uidotdev/usehooks": "^2.4.1",
+		"clsx": "^2.1.1",
+		"graphql": "16.14.2",
+		"lucide-react": "^1.31.0",
+		"next": "16.3.0",
+		"nuqs": "^2.9.5",
+		"payload": "3.87.1",
+		"react": "19.2.8",
+		"react-dom": "19.2.8",
+		"react-hook-form": "^7.85.0",
+		"server-only": "^0.0.1",
+		"tailwind-merge": "^3.6.0",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.7",
+		"@tailwindcss/postcss": "4.3.3",
+		"@types/node": "^24.13.3",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.4",
+		"postcss": "8.5.26",
+		"tailwindcss": "4.3.3",
+		"typescript": "^7.0.2",
+		"vitest": "4.1.10"
+	}
+}

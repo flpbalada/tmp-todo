@@ -1,0 +1,14 @@
+.git
+.github
+.next
+.worktrees
+node_modules
+coverage
+Dockerfile*
+compose*.yaml
+.env*
+!.env.example
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,72 @@
+name: Code quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://payload:payload@localhost:5432/payload
+      PAYLOAD_SECRET: ci-only-payload-secret
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: payload
+          POSTGRES_PASSWORD: payload
+          POSTGRES_USER: payload
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U payload -d payload"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check generated artifacts
+        run: |
+          pnpm payload:generate:types
+          pnpm payload:generate:importmap
+          git diff --exit-code -- payload-types.ts "app/(payload)/admin/importMap.js" "app/(payload)/admin/importMap.d.ts"
+
+      - name: Run migrations
+        run: |
+          pnpm payload:migrate
+          pnpm payload:migrate:status
+
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
